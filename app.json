@@ -1,0 +1,12 @@
+{
+  "name": "crnalib",
+  "displayName": "crnalib",
+  "expo": {
+    "name": "crnalib",
+    "slug": "crnalib",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
