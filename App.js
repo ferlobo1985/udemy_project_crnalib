@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, Platform, StyleSheet, Text, View } from 'react-native';
 import { Icon, Header, Overlay }  from 'react-native-elements';
 
 import SuperText from './src/widgets/superText';
@@ -10,6 +10,21 @@ const App = () => {
   const toggleOverlay = () => {
     setVisible(!visible);
   }
+
+  const checkSupport = () => {
+    if(Platform.OS === 'ios'){
+      if(Platform.Version < 14 ){
+        return false
+      }
+    } else {
+      if(Platform.Version < 29){
+        return false
+      }
+    }
+    return true
+  }
+
+
 
   return (
     <View>
@@ -26,9 +41,26 @@ const App = () => {
         rightComponent={{ icon: 'home', color: '#fff' }}
       />
 
-      <SuperText style={{ backgroundColor:'red'}}>
-        Hello this is my reusable component
-      </SuperText>
+      { checkSupport() ?
+       <Overlay isVisible={true}>
+            <Text>
+              { Platform.OS === 'ios' ?
+                'Welcome to your ios'
+              :
+                'Welcome to android'
+              }
+            </Text>
+        </Overlay>
+        :
+          <Overlay isVisible={true}>
+            <Text>
+             Sorry your app is not supported
+            </Text>
+        </Overlay>
+
+      }
+       
+
     </View>
   );
 }
